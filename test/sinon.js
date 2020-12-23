@@ -1,5 +1,6 @@
 const sinon = require('sinon')
-const { assert } = require('chai')
+// const { assert } = require('chai')
+const assert = require('assert')
 
 function once(fn) {
   let [called, returnValue] = [false]
@@ -31,8 +32,7 @@ describe('Sinon', () => {
     proxy()
 
     assert(callback.calledOnce)
-    // ...or:
-    // assert.equals(callback.callCount, 1);
+    assert.equal(callback.callCount, 1)
   })
 
   it('calls original function with right this and args', () => {
@@ -50,6 +50,6 @@ describe('Sinon', () => {
     const callback = sinon.fake.returns(42)
     const proxy = once(callback)
 
-    assert.equals(proxy(), 42)
+    assert.equal(proxy(), 42)
   })
 })

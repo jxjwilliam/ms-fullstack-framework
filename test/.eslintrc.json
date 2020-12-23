@@ -1,6 +1,9 @@
 {
-	"env": {
+  "env": {
     "mocha": true,
     "jest": true
-	}
+  },
+  "rules": {
+    "no-unused-expressions": 0
+  }
 }
