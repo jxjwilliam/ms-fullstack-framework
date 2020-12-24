@@ -1,18 +1,41 @@
 {
-  "name": "fullstack-test",
+  "name": "ms-fullstack-test-framework",
   "version": "1.0.0",
   "description": "微服务框架架构模板",
-  "main": "index.js",
+  "main": "app.js",
+  "keywords": [
+    "microservice",
+    "test framework",
+    "javascript ecosystem",
+    "eslint-prettier-airbnb-mocha-chai-lerna"
+  ],
+  "author": "William Jiang, Best IT Consulting",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./app",
+    "debug": "cross-env DEBUG=ms-fullstack-test-framework:* nodemon",
+    "format": "yarn prettier --write .",
+    "eslint": "eslint",
+    "test": "mocha --recursive --watch --require @babel/register --exit",
+    "test1": "mocha --require @babel/register",
+    "clean": "rimraf",
+    "lerna": "lerna",
+    "sinon": "sinon"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.2.0",
     "http-errors": "^1.8.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/register": "^7.12.10",
     "babel-eslint": "^10.1.0",
@@ -38,24 +61,5 @@
     "rimraf": "^3.0.2",
     "sinon": "^9.2.2",
     "sinon-chai": "^3.5.0"
-  },
-  "scripts": {
-    "start": "nodemon --exec babel-node ./index",
-    "debug": "cross-env DEBUG=ms-fullstack-test-framework:* nodemon",
-    "format": "yarn prettier --write .",
-    "eslint": "eslint",
-    "test": "mocha --recursive --watch --require @babel/register --exit",
-    "test1": "mocha --require @babel/register",
-    "clean": "rimraf",
-    "lerna": "lerna",
-    "sinon": "sinon"
-  },
-  "keywords": [
-    "microservice",
-    "test-framework",
-    "js-ecosystem",
-    "eslint-prettier-airbnb-mocha-chai-lerna"
-  ],
-  "author": "William Jiang, Best IT Consulting",
-  "license": "MIT"
+  }
 }

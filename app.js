@@ -1,7 +1,11 @@
 import express from 'express'
+import path from 'path'
 import http from 'http'
-import logger from 'morgan'
 import createError from 'http-errors'
+import logger from 'morgan'
+import cors from 'cors'
+import helmet from 'helmet'
+import favicon from 'serve-favicon'
 
 require('dotenv').config()
 
@@ -9,6 +13,9 @@ const port = process.env.PORT || 8080
 
 const app = express()
 app.use(logger('dev'))
+app.use(helmet())
+app.use(cors())
+app.use(favicon(path.join(__dirname, './public', 'favicon.ico')))
 
 app.get('/', (req, res) => res.status(200).send('It Works!'))
 
@@ -16,7 +23,7 @@ app.get('/', (req, res) => res.status(200).send('It Works!'))
 app.use((req, res, next) => next(createError(404)))
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
@@ -26,7 +33,7 @@ app.use((err, req, res, next) => {
 
 const server = http.createServer(app)
 server.listen(port, () => {
-  console.log(`ms-features 微服务运行在端口 ${port}!`)
+  console.log(`🚒 ms-fullstack-test-framework 微服务运行在端口 ${port}!`)
 })
 
 module.exports = app
