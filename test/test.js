@@ -13,14 +13,14 @@ describe('smoke test', function () {
   })
 })
 
-describe('sinon: spy, stub, mock', () => {
+describe('sinon: spy, stub, mock', function () {
   let getIndexPage
-  before(() => {
+  before(function () {
     getIndexPage = (req, res) => {
       res.send('Hey')
     }
   })
-  it('should getIndexPage return page', () => {
+  it('should getIndexPage return page', function () {
     const [req, res] = [
       {},
       {

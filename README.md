@@ -11,7 +11,7 @@ The devDependencies List:
 | `airbnb`        | eslint --init                      |
 | `.editorconfig` | need manually copy in              |
 | `.babelrc`      | babel.config.json, support import  |
-| `.vimrc`        | lock node version                  |
+| `.nvmrc`        | lock node version                  |
 | `mocha`         | unit test                          |
 | `chai`          | chai-http                          |
 | `sinon`         | spy, stub, mock, sinon-chai        |
@@ -29,17 +29,19 @@ The devDependencies List:
 
 ---
 
-```shell
-$ mkdir ${ms-dir} && cd _
-$ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-prettier-airbnb-react/master/eslint-prettier-config.sh 2> /dev/null)
-```
+- `npx eslint-prettier-init`
+- Or:
+  ```shell
+  $ mkdir ${ms-dir} && cd _
+  $ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-prettier-airbnb-react/master/eslint-prettier-config.sh 2> /dev/null)
+  ```
 
 上述脚本执行以下步骤：
 
 1. ESLint & Prettier Installation
-1. Conforming to Airbnb's JavaScript Style Guide
-1. Making ESLint and Prettier work together
-1. Building `.eslintrc.json`
+2. Conforming to Airbnb's JavaScript Style Guide
+3. Making ESLint and Prettier work together
+4. Building `.eslintrc.json`
 
 基本配置完成之后，还需要手动添加和修改。
 
@@ -77,12 +79,12 @@ $ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-
 
   ```shell
   $ yarn add eslint --dev
-  $ npx eslint --init
+  $ npx eslint --init # 生成.eslintrc.json文件。
   $ touch .eslintignore
 
-  $ yarn add -D eslint-config-prettier eslint-plugin-prettier
-  $ yarn add -D eslint-plugin-import
-  $ yarn add -D eslint-config-node eslint-plugin-node
+  $ npm i -D eslint prettier eslint-plugin-prettier eslint-config-prettier eslint-plugin-node eslint-config-node
+
+  $ npx install-peerdeps --dev eslint-config-airbnb
   ```
 
   Install `prettier` first, then when `npx eslint --init`, there will be remindering of `airbnb` stuff.
@@ -117,6 +119,14 @@ $ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-
   ```
 
   添加`.babelrc` / `babel.config.json`
+
+## 📑 monorepo
+
+---
+
+```shell
+$ npx lerna init
+```
 
 ## 📑 Summary
 

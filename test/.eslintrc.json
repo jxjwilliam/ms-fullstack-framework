@@ -3,6 +3,8 @@
     "mocha": true,
     "jest": true
   },
+  "plugins": ["mocha"],
+  "extends": ["plugin:mocha/recommended"],
   "rules": {
     "no-unused-expressions": 0
   }
