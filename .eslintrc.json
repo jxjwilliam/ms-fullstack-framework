@@ -15,6 +15,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  },
   "rules": {
     "prettier/prettier": 2,
     "class-methods-use-this": 0,
