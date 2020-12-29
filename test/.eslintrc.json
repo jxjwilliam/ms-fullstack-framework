@@ -3,9 +3,10 @@
     "mocha": true,
     "jest": true
   },
-  "plugins": ["mocha"],
   "extends": ["plugin:mocha/recommended"],
   "rules": {
-    "no-unused-expressions": 0
+    "no-unused-expressions": 0,
+    "mocha/max-top-level-suites": 0,
+    "mocha/no-mocha-arrows": 0
   }
 }
