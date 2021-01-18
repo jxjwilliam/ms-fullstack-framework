@@ -7,7 +7,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import favicon from 'serve-favicon'
 
-require('dotenv').config();
+require('dotenv').config()
 
 const port = process.env.PORT || 8080
 
