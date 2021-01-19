@@ -1,7 +1,6 @@
 {
   "env": {
-    "mocha": true,
-    "jest": true
+    "mocha": true
   },
   "extends": ["plugin:mocha/recommended"],
   "rules": {

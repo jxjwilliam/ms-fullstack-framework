@@ -1,11 +1,11 @@
 import express from 'express'
-import path from 'path'
 import http from 'http'
 import createError from 'http-errors'
 import logger from 'morgan'
 import cors from 'cors'
 import helmet from 'helmet'
-import favicon from 'serve-favicon'
+// import path from 'path'
+// import favicon from 'serve-favicon'
 
 require('dotenv').config()
 
@@ -15,7 +15,7 @@ const app = express()
 app.use(logger('dev'))
 app.use(helmet())
 app.use(cors())
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+// app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/', (req, res) => res.status(200).send('It Works!'))
 
@@ -35,5 +35,3 @@ const server = http.createServer(app)
 server.listen(port, () => {
   console.log(`🚒 ms-fullstack-test-framework 微服务运行在端口 ${port}!`)
 })
-
-module.exports = app
