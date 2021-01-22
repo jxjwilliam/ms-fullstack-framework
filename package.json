@@ -1,11 +1,11 @@
 {
-  "name": "ms-fullstack-test-framework",
+  "name": "ms-fullstack-framework",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
-  "description": "微服务框架架构模板, lerna + yarn workspaces",
+  "description": "微服务框架架构模板, lerna + yarn workspaces project",
   "main": "app.js",
   "keywords": [
     "microservice",

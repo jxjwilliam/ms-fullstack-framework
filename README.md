@@ -29,7 +29,7 @@ The devDependencies List:
 
 ---
 
-- `npx eslint-prettier-init`
+- `npx eslint --init`
 - Or:
   ```shell
   $ mkdir ${ms-dir} && cd _
