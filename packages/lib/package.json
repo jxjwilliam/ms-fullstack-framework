@@ -1,7 +1,7 @@
 {
-  "name": "common",
+  "name": "@ms-fullstack/lib",
   "version": "1.0.0",
-  "description": "",
+  "description": "ms-fullstack library",
   "main": "index.js",
   "scripts": {
     "start": "babel-node ./index",

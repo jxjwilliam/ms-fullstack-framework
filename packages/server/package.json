@@ -1,16 +1,19 @@
 {
-  "name": "server",
-  "version": "0.0.0",
+  "name": "@ms-fullstack/server",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./app"
   },
   "dependencies": {
+    "@ms-fullstack/lib": "*",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
     "http-errors": "^1.8.0",
     "morgan": "^1.10.0",
     "serve-favicon": "^2.5.0"
-  }
+  },
+  "devDependencies": {}
 }

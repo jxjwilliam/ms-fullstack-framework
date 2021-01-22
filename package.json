@@ -6,23 +6,23 @@
     "packages/*"
   ],
   "description": "微服务框架架构模板, lerna + yarn workspaces project",
-  "main": "app.js",
+  "main": "index.js",
   "keywords": [
     "microservice",
     "test framework",
     "javascript ecosystem",
-    "eslint-prettier-airbnb-mocha-chai-lerna"
+    "eslint-prettier-airbnb-mocha-chai"
   ],
   "author": "William Jiang, Best IT Consulting",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node ./app",
-    "debug": "cross-env DEBUG=ms-fullstack-test-framework:* nodemon",
-    "format": "yarn prettier --write .",
-    "eslint": "eslint ./packages/**/*.js",
-    "test": "mocha --recursive --watch --require @babel/register --exit",
-    "test1": "mocha --require @babel/register",
-    "clean": "rimraf",
+    "start1": "yarn workspace @ms-fullstack/server run start",
+    "debug": "cross-env DEBUG=ms-fullstack:* nodemon --exec babel-node",
+    "format": "prettier --write .",
+    "eslint": "eslint ./packages/client/src/**/*.js",
+    "test1": "mocha --recursive --require @babel/register --watch",
+    "test2": "mocha --require @babel/register --exit",
+    "clean": "rimraf build",
     "lerna": "lerna",
     "sinon": "sinon"
   },

@@ -1,49 +1,33 @@
+# ms-fullstack-framework
+
+![flow](etc/ms-fullstack.png)
+
 ## 📑 devDependencies 工具
 
 ---
 
 The devDependencies List:
 
-| Name            | Description                        |
-| --------------- | ---------------------------------- |
-| `eslint`        | create-react-app version issue 6.6 |
-| `prettier`      | need manually install              |
-| `airbnb`        | eslint --init                      |
-| `.editorconfig` | need manually copy in              |
-| `.babelrc`      | babel.config.json, support import  |
-| `.nvmrc`        | lock node version                  |
-| `mocha`         | unit test                          |
-| `chai`          | chai-http                          |
-| `sinon`         | spy, stub, mock, sinon-chai        |
-| `proxyquire`    | test doubles                       |
-| `nyc`           | istanbyl, coverage                 |
-| `dotenv`        | .env support                       |
-| `cross-env`     | windows/mac/linux support          |
-| `lerna`         | husky, lint-staged                 |
-| `concurrently`  | run multiple micro-services        |
-| `nodemon`       | --watch                            |
-| `pm2`           | production environment             |
-| `rimraf`        | clean build, dist                  |
-
-## 📑 Initialize from `quick starter` script
-
----
-
-- `npx eslint --init`
-- Or:
-  ```shell
-  $ mkdir ${ms-dir} && cd _
-  $ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-prettier-airbnb-react/master/eslint-prettier-config.sh 2> /dev/null)
-  ```
-
-上述脚本执行以下步骤：
-
-1. ESLint & Prettier Installation
-2. Conforming to Airbnb's JavaScript Style Guide
-3. Making ESLint and Prettier work together
-4. Building `.eslintrc.json`
-
-基本配置完成之后，还需要手动添加和修改。
+| Name                      | Description                           |
+| ------------------------- | ------------------------------------- |
+| `eslint`                  | create-react-app version issue 6.6    |
+| `prettier`                | need manually install                 |
+| `airbnb`                  | eslint --init                         |
+| `.editorconfig`           | need manually copy in                 |
+| `.babelrc`                | babel.config.json, support import     |
+| `.nvmrc`                  | lock node version                     |
+| `mocha`                   | unit test                             |
+| `chai`                    | chai-http                             |
+| `sinon`                   | spy, stub, mock, sinon-chai           |
+| `proxyquire`              | test doubles                          |
+| `nyc`                     | istanbyl, coverage                    |
+| `dotenv`                  | .env support                          |
+| `cross-env`               | windows/mac/linux support             |
+| `lerna`, `yarn workspace` | husky, lint-staged                    |
+| `concurrently`            | optional, run multiple micro-services |
+| `nodemon`                 | --babel-node                          |
+| `pm2`                     | production environment                |
+| `rimraf`                  | clean build, dist                     |
 
 ## 📑 Initialize Manually step by step
 
@@ -54,7 +38,7 @@ The devDependencies List:
 - init project
 
   ```shell
-  $ npx express-generator ms-fullstack-test-framework`
+  $ npx express-generator ms-fullstack-framework`
   ```
 
 - 添加.editorconfig: copy default from [editorconfig site](http://editorconfig.org)
@@ -137,3 +121,23 @@ $ npx lerna init
 - Istanbul (nyc)
 - lerna
 - concurrently / nodemon
+
+```shell
+$ yarn workspace @ms-fullstack/server add @ms-fullstack/lib@*
+```
+
+## 📑 optional Init Script
+
+```shell
+$ mkdir ${ms-dir} && cd _
+$ exec 3<&1;bash <&3 <(curl https://raw.githubusercontent.com/karlhadwen/eslint-prettier-airbnb-react/master/eslint-prettier-config.sh 2> /dev/null)
+```
+
+上述脚本执行以下步骤：
+
+1. ESLint & Prettier Installation
+2. Conforming to Airbnb's JavaScript Style Guide
+3. Making ESLint and Prettier work together
+4. Building `.eslintrc.json`
+
+基本配置完成之后，还需要手动添加和修改。
