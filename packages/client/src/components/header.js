@@ -13,6 +13,9 @@ function Navbars() {
       <Link to="/ali-express" className="nav">
         Ali-Express
       </Link>
+      <Link to="/help" className="nav">
+        Help
+      </Link>
     </nav>
   )
 }

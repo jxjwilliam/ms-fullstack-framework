@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useTable } from 'react-table'
+import { useTable, useAsyncDebounce, useSortBy, useGlobalFilter } from 'react-table'
 import dayjs from 'dayjs'
 import { Modal } from '../components'
 
@@ -7,8 +7,45 @@ import { Modal } from '../components'
  * https://github.com/public-apis/public-apis
  * CORS policy: No 'Access-Control-Allow-Origin' header
  */
+
+function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = React.useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+    setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+    <span>
+      Search:{' '}
+      <input
+        value={value || ''}
+        onChange={e => {
+          setValue(e.target.value)
+          onChange(e.target.value)
+        }}
+        placeholder={`type, date, location in ${count} records...`}
+        style={{
+          fontSize: '1.1rem',
+          border: '0',
+        }}
+      />
+    </span>
+  )
+}
+
 function Table({ columns, data }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data })
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    visibleColumns,
+    state,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+  } = useTable({ columns, data }, useGlobalFilter, useSortBy)
 
   return (
     <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
@@ -17,7 +54,7 @@ function Table({ columns, data }) {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
               <th
-                {...column.getHeaderProps()}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
                 style={{
                   borderBottom: 'solid 3px red',
                   background: 'aliceblue',
@@ -26,10 +63,25 @@ function Table({ columns, data }) {
                 }}
               >
                 {column.render('Header')}
+                <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span>
               </th>
             ))}
           </tr>
         ))}
+        <tr>
+          <th
+            colSpan={visibleColumns.length}
+            style={{
+              textAlign: 'left',
+            }}
+          >
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </th>
+        </tr>
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map(row => {
@@ -73,6 +125,13 @@ export default function () {
   }
 
   const columns = [
+    {
+      Header: '#',
+      id: 'row',
+      maxWidth: 50,
+      filterable: false,
+      Cell: row => <div>{parseInt(row.row.id, 10) + 1}</div>,
+    },
     {
       Header: 'Type',
       accessor: 'type',
@@ -118,6 +177,7 @@ export default function () {
   const handleChange = event => {
     const search = event.target.value.toLowerCase().trim()
     setQuery(search)
+    // useAsyncDebounce(setQuery(search), 500)
   }
 
   /**
