@@ -123,7 +123,7 @@ $ npx lerna init
 - concurrently / nodemon
 
 ```shell
-$ yarn workspace @ms-fullstack/server add @ms-fullstack/lib@*
+$ yarn workspace server add @ms-fullstack/lib@*
 ```
 
 ## 📑 optional Init Script

@@ -7,13 +7,15 @@ const cors = require('cors')
 const helmet = require('helmet')
 const favicon = require('serve-favicon')
 const { isEmpty } = require('@ms-fullstack/lib')
+const aliExpress = require('./rapidapi/ali-express')
+const walmart = require('./rapidapi/walmart')
+const gitHub = require('./routes/github')
 
 require('dotenv').config()
 
 const port = process.env.PORT
-
 if (isEmpty(port)) {
-  console.error('port is empty')
+  throw new Error('port is empty')
 }
 
 const app = express()
@@ -23,7 +25,14 @@ app.use(cors())
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/', (req, res) => res.status(200).json({ msg: 'Flow Works!' }))
-app.get('/message', (req, res) => res.status(200).json({ msg: 'Get message from @ms-fullstack/server!' }))
+
+app.get('/api/message', (req, res) => res.status(200).json({ msg: 'Get message from BFF server!' }))
+
+app.use('/rapidapi/ali-express', aliExpress)
+
+app.use('/rapidapi/walmart', walmart)
+
+app.use('/github', gitHub)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(createError(404)))

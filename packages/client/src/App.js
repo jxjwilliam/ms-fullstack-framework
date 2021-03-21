@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { isEmpty } from '@ms-fullstack/lib'
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import './App.css'
+import { Header, Footer } from './components'
+import { Github, Walmart, AliExpress } from './containers'
+
+function Routers() {
+  return (
+    <Switch>
+      <Route path="/" component={Github} exact />
+      <Route path="/walmart" component={Walmart} />
+      <Route path="/ali-express" component={AliExpress} />
+      <Route render={() => <h1>Not Found</h1>} />
+    </Switch>
+  )
+}
 
 function App() {
-  const [message, setMessage] = useState('')
-  useEffect(() => {
-    if (isEmpty(message)) {
-      console.log('current the message is null, fetching...')
-    }
-    try {
-      fetch('/message')
-        .then(data => data.json())
-        .then(data => setMessage(data.msg))
-    } catch (err) {
-      console.error(err)
-    }
-  }, [])
-
   return (
     <div className="App">
-      <header className="App-header">
-        <p>{message}</p>
-      </header>
+      <Header />
+      <main>
+        <Routers />
+      </main>
+      <Footer />
     </div>
   )
 }
