@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useTable, useAsyncDebounce, useSortBy, useGlobalFilter } from 'react-table'
 import dayjs from 'dayjs'
-import { Modal } from '../components'
+import { Modal, useFetch, Error, Loading, NoRecord } from '../components'
 
 /**
  * https://github.com/public-apis/public-apis
@@ -16,21 +16,23 @@ function GlobalFilter({ preGlobalFilteredRows, globalFilter, setGlobalFilter }) 
   }, 200)
 
   return (
-    <span>
-      Search:{' '}
+    <div>
       <input
+        type="search"
         value={value || ''}
         onChange={e => {
           setValue(e.target.value)
           onChange(e.target.value)
         }}
-        placeholder={`type, date, location in ${count} records...`}
+        placeholder={`Search type, date, location in ${count} records...`}
         style={{
           fontSize: '1.1rem',
           border: '0',
+          width: '500px',
+          margin: '10px',
         }}
       />
-    </span>
+    </div>
   )
 }
 
@@ -50,6 +52,20 @@ function Table({ columns, data }) {
   return (
     <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
       <thead>
+        <tr>
+          <th
+            colSpan={visibleColumns.length}
+            style={{
+              textAlign: 'left',
+            }}
+          >
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </th>
+        </tr>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -68,20 +84,6 @@ function Table({ columns, data }) {
             ))}
           </tr>
         ))}
-        <tr>
-          <th
-            colSpan={visibleColumns.length}
-            style={{
-              textAlign: 'left',
-            }}
-          >
-            <GlobalFilter
-              preGlobalFilteredRows={preGlobalFilteredRows}
-              globalFilter={state.globalFilter}
-              setGlobalFilter={setGlobalFilter}
-            />
-          </th>
-        </tr>
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map(row => {
@@ -108,16 +110,23 @@ function Table({ columns, data }) {
   )
 }
 
+/**
+ * query: input display (trailing input)
+ * search: debounce
+ * detailItem: modal detail
+ */
 export default function () {
   const [query, setQuery] = useState('node')
-  const [data, setData] = useState([])
+  const [search, setSearch] = useState(query)
   const [isOpen, setIsOpen] = useState(false)
-  const [item, setItem] = useState(null)
+  const [detailItem, setDetailItem] = useState(null)
+
+  const { loading, error, data } = useFetch(search ? `/github/${search}` : '')
 
   function toggleModal(event) {
     if (!isOpen) {
-      const selected = data.find(item => item.id.toString() === event.target.id.toString())
-      setItem(selected)
+      const selected = data?.find(item => item.id.toString() === event.target.id.toString())
+      setDetailItem(selected)
       setIsOpen(true)
     } else {
       setIsOpen(false)
@@ -164,38 +173,44 @@ export default function () {
     },
   ]
 
-  useEffect(async () => {
-    let mounted = true
+  const debounceSearch = useAsyncDebounce(() => {
     if (query) {
-      const res = await fetch(`/github/${query}`)
-      const json = await res.json()
-      if (mounted) setData(json)
+      setSearch(query.toLowerCase().trim())
     }
-    return () => (mounted = false)
-  }, [query])
+  }, 500)
 
   const handleChange = event => {
-    const search = event.target.value.toLowerCase().trim()
-    setQuery(search)
-    // useAsyncDebounce(setQuery(search), 500)
+    const query = event.target.value
+    setQuery(query)
+    debounceSearch()
   }
 
-  /**
-   * TODO: throttle, debounce
-   */
   const handleSubmit = event => {
-    setQuery(event.target.value.toLowerCase().trim())
+    debounceSearch()
     event.preventDefault()
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={query} onChange={handleChange} />
-        <button type="submit">Search!</button>
-      </form>
-      <Table columns={columns} data={data} />
-      {isOpen && <Modal isOpen={isOpen} toggleModal={toggleModal} item={item} />}
+      <div className="search-header">
+        <h4>Dialog, Sortable, Filterable, Debounce</h4>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="search"
+            value={query || ''}
+            onChange={handleChange}
+            placeholder="search github"
+            className="search"
+          />
+          <button type="submit">🔎</button>
+        </form>
+        <h5 style={{ marginLeft: '1rem' }}>current search: {search}</h5>
+      </div>
+      {loading && <Loading />}
+      {error && <Error />}
+      {data?.length === 0 && <NoRecord />}
+      {data?.length > 0 && <Table columns={columns} data={data} />}
+      {isOpen && detailItem && <Modal isOpen={isOpen} toggleModal={toggleModal} item={detailItem} />}
     </>
   )
 }

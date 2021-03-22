@@ -26,7 +26,9 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 app.get('/', (req, res) => res.status(200).json({ msg: 'Flow Works!' }))
 
-app.get('/api/message', (req, res) => res.status(200).json({ msg: 'Get message from BFF server!' }))
+app.get('/api/message', (req, res) =>
+  res.status(200).json({ msg: 'Welcome to Microservices Full-stack Monorepo Site!' }),
+)
 
 app.use('/rapidapi/ali-express', aliExpress)
 

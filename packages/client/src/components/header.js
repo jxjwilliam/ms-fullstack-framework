@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import logo from '../images/ca.png'
 
 function Navbars() {
   return (
@@ -23,7 +24,10 @@ function Navbars() {
 export default function () {
   return (
     <header className="App-header">
-      <h4>Miroservices Full-Stack Monorepo</h4>
+      <div>
+        <h4>Miroservices Full-Stack Monorepo</h4>
+        <img src={logo} width="36px" height="20px" alt="ca flag" className="flag" />
+      </div>
       <Navbars />
     </header>
   )
