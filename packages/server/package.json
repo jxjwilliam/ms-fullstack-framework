@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./app"
+    "start": "nodemon ./app",
+    "delivery": "rimraf build && mv ../client/build .",
+    "prod": "node ./app"
   },
   "dependencies": {
     "@ms-fullstack/lib": "*",

@@ -22,7 +22,9 @@ const app = express()
 app.use(logger('dev'))
 app.use(helmet())
 app.use(cors())
-app.use(favicon(path.join(__dirname, 'favicon.ico')))
+app.use(favicon(path.join(__dirname, 'favicon.svg')))
+
+app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/', (req, res) => res.status(200).json({ msg: 'Flow Works!' }))
 
