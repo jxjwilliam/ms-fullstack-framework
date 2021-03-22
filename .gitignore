@@ -4,7 +4,7 @@ node_modules
 coverage
 
 # production
-#build
+build
 
 # hidden folder
 .vscode
