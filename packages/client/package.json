@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ms-fullstack/lib": "*",
+    "@szhsin/react-menu": "^1.8.0",
     "dayjs": "^1.10.4",
     "http-proxy-middleware": "^1.0.6",
     "match-sorter": "^6.3.0",

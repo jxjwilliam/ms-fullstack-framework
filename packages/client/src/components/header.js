@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../images/ca.png'
+import Help from './menu'
 
 function Navbars() {
   return (
@@ -17,6 +18,7 @@ function Navbars() {
       <Link to="/help" className="nav">
         Help
       </Link>
+      <Help />
     </nav>
   )
 }
